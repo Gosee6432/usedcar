@@ -1,9 +1,24 @@
 import React, { useEffect } from 'react';
 
 function CardBlock({ subtitle, cards, image, ads }) {
-  // 광고만 표시하는 블록
+  // 광고 스크립트 삽입 및 광고 초기화
   useEffect(() => {
     if (ads) {
+      // 스크립트가 이미 삽입되었는지 확인
+      const existingScript = document.querySelector(
+        'script[src*="pagead2.googlesyndication.com"]'
+      );
+
+      if (!existingScript) {
+        const script = document.createElement('script');
+        script.src =
+          'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1217533439838380';
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+        document.body.appendChild(script);
+      }
+
+      // 광고 표시
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       } catch (e) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,6 +10,22 @@ import CardSection from './components/CardSection';
 import carBanner from './assets/7c662762-271d-475f-8382-93164468364d.png';
 
 function App() {
+  // 광고 스크립트 삽입
+  useEffect(() => {
+    const existingScript = document.querySelector(
+      'script[src*="pagead2.googlesyndication.com"]'
+    );
+
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.src =
+        'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1217533439838380';
+      script.async = true;
+      script.crossOrigin = 'anonymous';
+      document.body.appendChild(script);
+    }
+  }, []);
+
   const guideBlocks = [
     {
       subtitle: '중고차 구매 전 꼭 할아야할 핵심 포인트',
@@ -171,7 +187,7 @@ function App() {
     {
       subtitle: '',
       image: carBanner,
-      cards: [], // 빈 배열이어도 됨
+      cards: [],
     },
     {
       subtitle: '차량별 추천',
@@ -328,7 +344,6 @@ function App() {
       <NavBar />
       <Routes>
         <Route path='/' element={<Navigate to='/guide' replace />} />
-
         <Route
           path='/guide'
           element={
@@ -361,8 +376,8 @@ function App() {
             <CardSection
               title='전기차 구매정보'
               description={[
-                '다가오는 신차 정보, 미리 알면 선택이 쉬워집니다.',
-                '전기차, 수입차 라인업까지 한 눈에 확인하세요.',
+                '전기차 정보, 미리 알면 선택이 쉬워집니다.',
+                '전기차 신차 라인업부터 중고구매 팁까지 한 눈에 확인하세요.',
               ]}
               blocks={evBlocks}
             />
