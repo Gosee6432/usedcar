@@ -27,6 +27,7 @@ function CardSection({ title, description, blocks }) {
             subtitle={block.subtitle}
             cards={block.cards}
             image={block.image}
+            ads={block.ads} // 이 부분 추가
           />
         ))}
       </div>
